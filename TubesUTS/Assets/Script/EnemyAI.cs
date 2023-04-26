@@ -13,11 +13,13 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float viewRange;
     private float speed;
     private int state;
+    private int incIndex;
 
     private void Start()
     {
         state = 0;
         speed = initialSpeed;
+        incIndex = 1;
     }
 
     private void Update()
@@ -33,7 +35,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, wayPoints[currentWayPointIndex].transform.position) < .1f)
         {
-            currentWayPointIndex++;
+            currentWayPointIndex += incIndex;
             if (currentWayPointIndex >= wayPoints.Length)
             {
                 currentWayPointIndex = 0;
@@ -46,12 +48,11 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasingPlayer()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) < viewRange)
-        {
-            speed += acceleration;
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-        else
+
+        speed += acceleration;
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        
+        if (Vector3.Distance(transform.position, player.transform.position) > viewRange)
         {
             speed = initialSpeed;
             state = 0;

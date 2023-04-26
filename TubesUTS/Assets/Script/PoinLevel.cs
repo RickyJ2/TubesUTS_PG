@@ -23,16 +23,16 @@ public class PoinLevel : MonoBehaviour
 
     public void ResetLevel()
     {
-        level = 0;
+        level = 1;
     }
 
     public void LevelUp()
     {
-        if(level == 4)
+        level++;
+        if (level == 3)
         {
             ResetLevel();
         }
-        level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
