@@ -11,6 +11,9 @@ public class PickUpItem : MonoBehaviour
     private Inventory playerInventory;
     private Rigidbody rb;
 
+    [SerializeField] private AudioSource pickUpSoundEffect;
+    [SerializeField] private AudioSource dropSoundEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,8 @@ public class PickUpItem : MonoBehaviour
         transform.localRotation = Quaternion.Euler(Vector3.zero);
         transform.localScale = Vector3.one;
 
+        
+        pickUpSoundEffect.Play();
         playerInventory.AddItem(itemTransform.gameObject);
     }
 
@@ -46,6 +51,8 @@ public class PickUpItem : MonoBehaviour
         rb.isKinematic = false;
         rb.useGravity = true;
         transform.SetParent(null);
+        
+        dropSoundEffect.Play();
         playerInventory.RemoveItem();
         
     }

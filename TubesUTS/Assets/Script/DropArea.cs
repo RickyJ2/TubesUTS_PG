@@ -7,6 +7,7 @@ public class DropArea : MonoBehaviour
 {
     [SerializeField] Transform player;
     private PoinLevel poinLevel;
+    [SerializeField] private AudioSource pointSoundEffect;
 
     private void Start()
     {
@@ -20,6 +21,8 @@ public class DropArea : MonoBehaviour
 
             poinLevel.AddPoint();
             Destroy(collision.gameObject);
+            pointSoundEffect.Play();
+
         }
     }
 }

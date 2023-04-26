@@ -10,6 +10,7 @@ public class PoinLevel : MonoBehaviour
     [SerializeField] int scoreIncrement = 10; 
     [SerializeField] Text scoreText;
     [SerializeField] Text levelText;
+    
 
     //set ke 0 kalau uda ada main screen
     static private int level = 1;
@@ -37,6 +38,8 @@ public class PoinLevel : MonoBehaviour
         {
             LevelUp();
         }
+        
+            
     }
 
     private void UpdateUI() {
