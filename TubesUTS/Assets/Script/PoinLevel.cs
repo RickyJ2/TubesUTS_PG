@@ -29,10 +29,11 @@ public class PoinLevel : MonoBehaviour
     public void LevelUp()
     {
         level++;
-        if (level == 3)
+        if (level == 4)
         {
             ResetLevel();
         }
+        UpdateUI();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
