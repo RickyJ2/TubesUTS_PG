@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -8,18 +9,14 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] GameObject[] wayPoints;
     private int currentWayPointIndex = 0;
 
-    [SerializeField] float initialSpeed;
-    [SerializeField] float acceleration;
     [SerializeField] float viewRange;
-    private float speed;
+    private NavMeshAgent agent;
     private int state;
-    private int incIndex;
 
     private void Start()
     {
         state = 0;
-        speed = initialSpeed;
-        incIndex = 1;
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
@@ -33,28 +30,25 @@ public class EnemyAI : MonoBehaviour
 
     private void Patrol()
     {
-        if (Vector3.Distance(transform.position, wayPoints[currentWayPointIndex].transform.position) < .1f)
+        if (Vector3.Distance(transform.position, wayPoints[currentWayPointIndex].transform.position) < 1f)
         {
-            currentWayPointIndex += incIndex;
+            currentWayPointIndex ++;
             if (currentWayPointIndex >= wayPoints.Length)
             {
                 currentWayPointIndex = 0;
             }
         }
-        transform.position = Vector3.MoveTowards(transform.position, wayPoints[currentWayPointIndex].transform.position, speed * Time.deltaTime);
+        agent.SetDestination(wayPoints[currentWayPointIndex].transform.position);
 
         if (Vector3.Distance(transform.position, player.transform.position) < viewRange) state = 1;
     }
 
     private void ChasingPlayer()
     {
+        agent.SetDestination(player.transform.position);
 
-        speed += acceleration;
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        
         if (Vector3.Distance(transform.position, player.transform.position) > viewRange)
         {
-            speed = initialSpeed;
             state = 0;
         }
     }
