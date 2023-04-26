@@ -40,10 +40,9 @@ public class PickUpItem : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
         transform.localScale = Vector3.one;
-
         
-        pickUpSoundEffect.Play();
         playerInventory.AddItem(itemTransform.gameObject);
+        pickUpSoundEffect.Play();
     }
 
     private void Drop()
@@ -52,8 +51,8 @@ public class PickUpItem : MonoBehaviour
         rb.useGravity = true;
         transform.SetParent(null);
         
-        dropSoundEffect.Play();
         playerInventory.RemoveItem();
+        dropSoundEffect.Play();
         
     }
 }
