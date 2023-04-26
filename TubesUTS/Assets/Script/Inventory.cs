@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem()
     {
+        Debug.Log("Removed");
         inventory = null;
     }
 

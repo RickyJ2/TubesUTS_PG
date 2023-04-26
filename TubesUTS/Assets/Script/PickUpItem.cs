@@ -47,12 +47,13 @@ public class PickUpItem : MonoBehaviour
 
     private void Drop()
     {
+        rb = playerInventory.Get().GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.useGravity = true;
-        transform.SetParent(null);
+        playerInventory.Get().transform.SetParent(null);
         
         playerInventory.RemoveItem();
         dropSoundEffect.Play();
-        
+        rb = GetComponent<Rigidbody>();
     }
 }

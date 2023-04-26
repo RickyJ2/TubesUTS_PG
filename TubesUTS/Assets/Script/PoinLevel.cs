@@ -21,13 +21,19 @@ public class PoinLevel : MonoBehaviour
         UpdateUI();
     }
 
+    public void ResetLevel()
+    {
+        level = 0;
+    }
+
     public void LevelUp()
     {
+        if(level == 4)
+        {
+            ResetLevel();
+        }
         level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //level 0: MainScreen
-        //Level 1,2,3: Scene Game
-        //Level 4: FinishScreen
     }
 
     public void AddPoint()
